@@ -15,12 +15,6 @@ function AllItemsList() {
         <li className='item'>
           <Link to='/accessories'>Accessories</Link>
         </li>
-        <li className='item'>
-          <Link to='/electronics'>Electronics</Link>
-        </li>
-        <li className='item'>
-          <Link to='/books'>Books</Link>
-        </li>
       </ul>
     </div>
   );

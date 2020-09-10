@@ -1,9 +1,9 @@
 import React from 'react';
 import Product from './Product.js';
-import '../styles/Home.css';
 import pdata from './pdata';
+import '../styles/Accessories.css';
 
-class Home extends React.Component {
+class accessories extends React.Component {
 
   constructor() {
     super();
@@ -14,14 +14,14 @@ class Home extends React.Component {
 
   render() {
     const arrayOfProducts = this.state.productsData.map((product) => {
-      if (product.topProduct) {
+      if (product.type === 'accessories') {
         return <Product key={product.id} data={product} />
       }
     })
 
     return (
-      <div className='home-container'>
-        <h1>Top Products</h1>
+      <div className='accessories-container'>
+        <h1>Accessories</h1>
         <div className='top-products'>
           {arrayOfProducts}
         </div>
@@ -30,4 +30,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default accessories;

@@ -1,0 +1,34 @@
+.product-screen-container {
+  display: flex;
+  margin: 5rem;
+}
+
+.product-screen-img {
+  height: 50rem;
+  width: 50%;
+}
+
+.product-screen-description{
+  margin-top: 5rem;
+  margin-left: 5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-screen-name {
+  margin: 1rem;
+  font-size: 3em;
+}
+
+.product-screen-price {
+  margin: 1rem;
+  font-size: 2em;
+  color: #ed6663;
+}
+
+.product-screen-addtocart{
+  font-size: 2em;
+  margin: 1rem;
+  padding: 0.5rem;
+  background-color: #ffd571 ;
+}

@@ -6,6 +6,9 @@ import {
   from 'react-router-dom';
 import AllItemsList from './AllItemsList.js';
 import Home from './Home.js';
+import Clothing from './Clothing.js';
+import Accessories from './Accessories.js';
+import ProductScreen from './ProductScreen.js';
 
 function App() {
   return (
@@ -14,18 +17,16 @@ function App() {
         <Header />
         <AllItemsList />
         <Switch>
-          {/*<Route path='/clothing'>
+          <Route path='/clothing'>
             <Clothing />
           </Route>
           <Route path='/accessories'>
             <Accessories />
           </Route>
-          <Route path='/electronics'>
-            <Electronics />
+
+          <Route path='/product/:id'>
+            <ProductScreen />
           </Route>
-          <Route path='/books'>
-            <Books />
-          </Route> */}
           <Route path='/'>
             <Home />
           </Route>
