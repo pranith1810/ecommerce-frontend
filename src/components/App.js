@@ -5,6 +5,7 @@ import {
 }
   from 'react-router-dom';
 import AllItemsList from './AllItemsList.js';
+import Home from './Home.js';
 
 function App() {
   return (
@@ -12,6 +13,23 @@ function App() {
       <div className="App">
         <Header />
         <AllItemsList />
+        <Switch>
+          {/*<Route path='/clothing'>
+            <Clothing />
+          </Route>
+          <Route path='/accessories'>
+            <Accessories />
+          </Route>
+          <Route path='/electronics'>
+            <Electronics />
+          </Route>
+          <Route path='/books'>
+            <Books />
+          </Route> */}
+          <Route path='/'>
+            <Home />
+          </Route>
+        </Switch>
       </div>
     </Router >
   );

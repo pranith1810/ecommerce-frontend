@@ -1,0 +1,37 @@
+.home-container h1{
+  color: #1a1c20;
+  margin: 1rem;
+  padding: 1rem;
+  background: #fff; 
+}
+
+.top-products {
+  display: flex; 
+  justify-content:space-evenly;
+  flex-wrap: wrap;
+}
+
+.product-container {
+  width: 20%;
+  margin: 1rem;
+}
+
+.product-img {
+  height: 20rem;
+  width: 100%;
+  border-radius: 2%;
+}
+
+.product-name {
+  margin-top: 1rem;
+  font-size: 1.2em;
+  margin-left: 1em;
+  color: #40a8c4;
+}
+
+.product-price {
+  font-size: 1.2em;
+  margin-top: 0.5rem;
+  margin-left: 1em;
+  font-weight: bold;
+}
