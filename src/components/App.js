@@ -12,38 +12,55 @@ import ProductScreen from './ProductScreen.js';
 import SignUp from './SignUp.js';
 import Login from './Login.js';
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <Header />
-        <Switch>
-        <Route path='/login'>
-            <Login />
-          </Route>
-          <Route path='/signup'>
-            <SignUp />
-          </Route>
-          <Route path='/clothing'>
-            <AllItemsList />
-            <Clothing />
-          </Route>
-          <Route path='/accessories'>
-            <AllItemsList />
-            <Accessories />
-          </Route>
-          <Route path='/product/:id'>
-            <AllItemsList />
-            <ProductScreen />
-          </Route>
-          <Route path='/'>
-            <AllItemsList />
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router >
-  );
+class App extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+      loginStatus : false
+    }
+    this.changeLoginStatus = this.changeLoginStatus.bind(this);
+  }
+
+  changeLoginStatus(){
+    this.setState({
+      loginStatus: !this.state.loginStatus
+    })
+  }
+
+  render() {
+    return (
+      <Router>
+        <div className="App">
+          <Header data={this.state} changeLoginStatus={this.changeLoginStatus} />
+          <Switch>
+            <Route path='/login'>
+              <Login data={this.state} changeLoginStatus={this.changeLoginStatus} />
+            </Route>
+            <Route path='/signup'>
+              <SignUp />
+            </Route>
+            <Route path='/clothing'>
+              <AllItemsList />
+              <Clothing />
+            </Route>
+            <Route path='/accessories'>
+              <AllItemsList />
+              <Accessories />
+            </Route>
+            <Route path='/product/:id'>
+              <AllItemsList />
+              <ProductScreen />
+            </Route>
+            <Route path='/'>
+              <AllItemsList />
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </Router >
+    );
+  }
 }
 
 export default App;

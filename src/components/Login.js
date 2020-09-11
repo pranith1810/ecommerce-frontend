@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import '../styles/Login.css';
 
 class Login extends React.Component {
@@ -10,6 +10,7 @@ class Login extends React.Component {
       password: ''
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -20,13 +21,15 @@ class Login extends React.Component {
   }
 
   handleFormSubmit(event) {
-    console.log('submitted');
     event.preventDefault();
+    this.props.changeLoginStatus();
+    this.props.history.push('/home');
   }
 
   render() {
     return (
       <div className='login-container'>
+        {!this.props.data.loginStatus ?
         <form className='login-form' onSubmit={this.handleFormSubmit}>
           <div>
             e-mail:
@@ -55,10 +58,13 @@ class Login extends React.Component {
           </div>
           <button type='submit'>Login</button>
         </form>
+        :
+        <h2>Already Logged in</h2>
+  }
       </div>
     );
   }
 }
 
 
-export default Login;
+export default withRouter(Login);
