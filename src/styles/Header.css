@@ -1,10 +1,39 @@
 .header-container {
   background-color: #ffd571;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container a{
+  text-decoration: none;
 }
 
 .store-name {
   color: #3c2946;
-  text-align: center;
 }
 
+.header-links{
+  display: flex;
+}
+
+.header-login {
+  margin: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10%;
+  
+}
+
+.header-signup {
+  margin: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10%;
+}
+
+.header-links a {
+  color: #000;
+  text-decoration: none;
+}

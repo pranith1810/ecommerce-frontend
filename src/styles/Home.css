@@ -14,6 +14,8 @@
 .product-container {
   width: 20%;
   margin: 1rem;
+  padding: 1rem 0;
+  background-color: #fff;
 }
 
 .product-container a{

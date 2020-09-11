@@ -9,25 +9,31 @@ import Home from './Home.js';
 import Clothing from './Clothing.js';
 import Accessories from './Accessories.js';
 import ProductScreen from './ProductScreen.js';
+import SignUp from './SignUp.js';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
-        <AllItemsList />
         <Switch>
+          <Route path='/signup'>
+            <SignUp />
+          </Route>
           <Route path='/clothing'>
+            <AllItemsList />
             <Clothing />
           </Route>
           <Route path='/accessories'>
+            <AllItemsList />
             <Accessories />
           </Route>
-
           <Route path='/product/:id'>
+            <AllItemsList />
             <ProductScreen />
           </Route>
           <Route path='/'>
+            <AllItemsList />
             <Home />
           </Route>
         </Switch>
