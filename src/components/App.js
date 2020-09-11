@@ -10,6 +10,7 @@ import Clothing from './Clothing.js';
 import Accessories from './Accessories.js';
 import ProductScreen from './ProductScreen.js';
 import SignUp from './SignUp.js';
+import Login from './Login.js';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
       <div className="App">
         <Header />
         <Switch>
+        <Route path='/login'>
+            <Login />
+          </Route>
           <Route path='/signup'>
             <SignUp />
           </Route>

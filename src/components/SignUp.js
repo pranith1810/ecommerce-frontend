@@ -9,9 +9,11 @@ class SignUp extends React.Component {
       name: '',
       email: '',
       password: '',
-      rePassword: ''
+      nameError: '',
+      passwordError: ''
     }
     this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -21,8 +23,39 @@ class SignUp extends React.Component {
     })
   }
 
-  handleFormSubmit(event){
-    console.log('sybmitted');
+  validate() {
+    const letters = /^[A-Za-z]+$/;
+    if (!this.state.name.match(letters)) {
+      this.setState({
+        nameError: 'Please enter a valid name',
+        passwordError: ''
+      })
+      return false;
+    }
+    else {
+      this.setState({
+        nameError: ''
+      })
+    }
+
+    if (!(this.state.password.length >= 8)) {
+      this.setState({
+        passwordError: 'Minimum of 8 characters'
+      })
+      return false;
+    }
+    else{
+      this.setState({
+        passwordError: ''
+      })
+    }
+    return true;
+  }
+
+  handleFormSubmit(event) {
+    if (this.validate()) {
+      console.log('submitted');
+    }
     event.preventDefault();
   }
 
@@ -30,26 +63,49 @@ class SignUp extends React.Component {
     return (
       <div className='signup-container'>
         <form className='signup-form' onSubmit={this.handleFormSubmit}>
-          <div>
+          <div className='input-container'>
             Name:
-          <input className='signup-input' type='text' name='name' value={this.state.name} onChange={this.handleChange} />
+          <input
+              className='signup-input'
+              type='text'
+              name='name'
+              value={this.state.name}
+              onChange={this.handleChange}
+              required={true}
+            />
           </div>
-          <div>
+          {this.state.nameError !== '' &&
+            <div className='error-message'>{this.state.nameError}</div>
+          }
+          <div className='input-container'>
             e-mail:
-          <input className='signup-input' type='email' name='email' value={this.state.email} onChange={this.handleChange} />
+          <input
+              className='signup-input'
+              type='email'
+              name='email'
+              value={this.state.email}
+              onChange={this.handleChange}
+              required={true}
+            />
           </div>
-          <div>
+          <div className='input-container'>
             Password:
-          <input className='signup-input' type='password' name='password' value={this.state.password} onChange={this.handleChange} />
+          <input
+              className='signup-input'
+              type='password'
+              name='password'
+              value={this.state.password}
+              onChange={this.handleChange}
+              required={true}
+            />
           </div>
-          <div>
-            Re-enter password:
-          <input className='signup-input' type='password' name='rePassword' value={this.state.rePassword} onChange={this.handleChange} />
-          </div>
-          <div>
+          {this.state.passwordError !== '' &&
+            <div className='error-message'>{this.state.passwordError}</div>
+          }
+          <div className='login-link'>
             Already a user? <Link to='/login' >Login</Link>
           </div>
-          <button type='submit'>Submit</button>
+          <button type='submit'>Sign Up</button>
         </form>
       </div>
     );

@@ -8,19 +8,23 @@
   display:flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border-radius: 3%;
   background-color: #fff;
-  width: max-content;
+  width: 25%;
   margin: 10rem;
 }
 
-.signup-container div{
-  margin: 1rem 2rem;
+.signup-container .input-container{
+  margin: 1rem 0;
+  width: 80%;
 }
 
 .signup-input {
-  font-size: 1.5em;
+  font-size: 1em;
+  padding: 0.5em;
   display: block;
+  width: 100%;
 }
 
 .signup-form button{
@@ -28,4 +32,13 @@
   font-size: 1.2em;
   margin: 1rem;
   padding: 0 0.5rem;
+}
+
+.error-message {
+  font-size: 0.9em;
+  color: #cd0a0a;
+}
+
+.login-link {
+  margin: 1rem;
 }
