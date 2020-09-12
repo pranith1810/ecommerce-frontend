@@ -9,7 +9,8 @@ class Login extends React.Component {
       email: '',
       password: '',
       emailError: '',
-      userExistError: ''
+      userExistError: '',
+      userConfirmError:''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -44,11 +45,16 @@ class Login extends React.Component {
           this.setState({
             userExistError: 'Wrong username or password!',
           })
+        } else if (response.status === 409) {
+          this.setState({
+            userConfirmError: 'Please confirm your mail',
+          })
         }
         else {
           this.setState({
             emailError: '',
-            userExistError: ''
+            userExistError: '',
+            userConfirmError:''
           })
           this.props.changeLoginStatus();
           this.props.history.push('/home');
@@ -92,6 +98,10 @@ class Login extends React.Component {
             {
               this.state.userExistError !== '' &&
               <div className='error-message'>{this.state.userExistError}</div>
+            }
+            {
+              this.state.userConfirmError !== '' &&
+              <div className='error-message'>{this.state.userConfirmError}</div>
             }
             <div>
               New user? <Link to='/signup' >Sign Up</Link>

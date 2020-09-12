@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import '../styles/SignUp.css';
 
 class SignUp extends React.Component {
@@ -85,6 +85,8 @@ class SignUp extends React.Component {
               userExistError: '',
               detailsInvalid: ''
             })
+            alert('Please confirm your email and login!');
+            this.props.history.push('/login');
           }
         })
         .catch((error) => {
@@ -156,4 +158,4 @@ class SignUp extends React.Component {
 }
 
 
-export default SignUp;
+export default withRouter(SignUp);
