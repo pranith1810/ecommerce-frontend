@@ -1,17 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import '../styles/Header.css';
 
 
 class Header extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
 
-  handleLogoutClick(){
+  handleLogoutClick() {
     this.props.changeLoginStatus();
+    this.props.history.push('/home');
   }
 
   render() {
@@ -36,4 +37,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

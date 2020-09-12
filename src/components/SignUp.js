@@ -10,7 +10,9 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       nameError: '',
-      passwordError: ''
+      passwordError: '',
+      userExistError: '',
+      detailsInvalid: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -44,7 +46,7 @@ class SignUp extends React.Component {
       })
       return false;
     }
-    else{
+    else {
       this.setState({
         passwordError: ''
       })
@@ -54,7 +56,40 @@ class SignUp extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      console.log('submitted');
+      fetch('http://localhost:8080/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password
+          }),
+      })
+        .then((response) => {
+          if (response.status === 400) {
+            this.setState({
+              detailsInvalid: 'Please enter correct details!',
+              userExistError: ''
+            })
+          } else if (response.status === 409) {
+            this.setState({
+              userExistError: 'User already exists!',
+              detailsInvalid: ''
+            })
+          }
+          else {
+            this.setState({
+              userExistError: '',
+              detailsInvalid: ''
+            })
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     }
     event.preventDefault();
   }
@@ -101,6 +136,14 @@ class SignUp extends React.Component {
           </div>
           {this.state.passwordError !== '' &&
             <div className='error-message'>{this.state.passwordError}</div>
+          }
+          {
+            this.state.userExistError !== '' &&
+            <div className='error-message'>{this.state.userExistError}</div>
+          }
+          {
+            this.state.detailsInvalid !== '' &&
+            <div className='error-message'>{this.state.detailsInvalid}</div>
           }
           <div className='login-link'>
             Already a user? <Link to='/login' >Login</Link>
