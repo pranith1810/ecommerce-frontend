@@ -8,12 +8,17 @@ class Header extends React.Component {
   constructor() {
     super();
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.handleCartClick = this.handleCartClick.bind(this);
   }
 
   handleLogoutClick() {
     this.props.changeLogout();
     this.props.history.push('/home');
     localStorage.clear();
+  }
+
+  handleCartClick(){
+    this.props.history.push('/cart');
   }
 
   render() {
@@ -31,7 +36,7 @@ class Header extends React.Component {
             :
             <div className='header-links-login'>
               <button className='header-logout' onClick={this.handleLogoutClick}>Log out</button>
-              <img className='header-cart-img' src={require('../images/cart.png')} alt='cart'></img>
+              <img className='header-cart-img' src={require('../images/cart.png')} onClick={this.handleCartClick} alt='cart'></img>
             </div>
         }
       </div>

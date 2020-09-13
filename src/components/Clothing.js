@@ -28,9 +28,7 @@ class Clothing extends React.Component {
 
   render() {
     const arrayOfProducts = this.state.productsData.map((product) => {
-      if (product.type === 'clothing') {
         return <Product key={product.id} data={product} />
-      }
     })
 
     return (

@@ -28,9 +28,7 @@ class Home extends React.Component {
 
   render() {
     const arrayOfProducts = this.state.productsData.map((product) => {
-      if (product.top_product) {
         return <Product key={product.id} data={product} />
-      }
     })
 
     return (

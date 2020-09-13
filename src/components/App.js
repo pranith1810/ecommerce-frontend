@@ -11,6 +11,7 @@ import Accessories from './Accessories.js';
 import ProductScreen from './ProductScreen.js';
 import SignUp from './SignUp.js';
 import Login from './Login.js';
+import Cart from './Cart.js';
 
 class App extends React.Component {
 
@@ -45,6 +46,9 @@ class App extends React.Component {
             <Route path='/login'>
               <Login data={this.state} changeLogin={this.changeLogin} />
             </Route>
+            <Route path='/cart'>
+              <Cart data={this.state}/>
+            </Route>
             <Route path='/signup'>
               <SignUp />
             </Route>
@@ -59,7 +63,7 @@ class App extends React.Component {
             <Route path='/product/:id' render={props =>
               <div>
                 <AllItemsList />
-                <ProductScreen {...props} />
+                <ProductScreen {...props} data={this.state} />
               </div>}
             />
             <Route path='/'>

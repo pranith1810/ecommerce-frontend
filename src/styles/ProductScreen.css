@@ -32,3 +32,9 @@
   padding: 0.5rem;
   background-color: #ffd571 ;
 }
+
+.added-message {
+  margin: 1rem;
+  font-size: 0.9em;
+  color: #0f3460;
+}

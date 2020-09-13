@@ -1,0 +1,29 @@
+.cart-product-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  border-radius: 3%;
+  margin: 1rem;
+}
+
+.cart-product-img {
+  height: 10rem;
+  width: 10%;
+}
+
+.cart-product-description{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+}
+
+.cart-product-name {
+  margin: 1rem;
+  font-size: 2em;
+}
+
+.cart-product-price {
+  margin: 1rem;
+  font-size: 1.5em;
+  color: #ed6663;
+}
