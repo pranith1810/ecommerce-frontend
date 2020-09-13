@@ -37,3 +37,24 @@
   color: #000;
   text-decoration: none;
 }
+
+.header-links-login {
+  display: flex;
+  align-items: center;
+}
+
+.header-logout {
+  cursor: pointer;
+  padding: 0.5rem;
+  background-color: #ec0101;
+  color: #fff;
+  font-size: 1.2em;
+  border-radius: 10%;
+}
+
+.header-cart-img {
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+  margin: 1rem;
+}

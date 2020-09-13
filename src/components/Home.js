@@ -12,6 +12,10 @@ class Home extends React.Component {
     }
   }
 
+  componentDidMount(){
+    
+  }
+
   render() {
     const arrayOfProducts = this.state.productsData.map((product) => {
       if (product.topProduct) {

@@ -11,8 +11,9 @@ class Header extends React.Component {
   }
 
   handleLogoutClick() {
-    this.props.changeLoginStatus();
+    this.props.changeLogout();
     this.props.history.push('/home');
+    localStorage.clear();
   }
 
   render() {
@@ -28,8 +29,9 @@ class Header extends React.Component {
               <Link to='/signup'><div className='header-signup'>Sign Up</div></Link>
             </div>
             :
-            <div>
-              <button onClick={this.handleLogoutClick}>Log out</button>
+            <div className='header-links-login'>
+              <button className='header-logout' onClick={this.handleLogoutClick}>Log out</button>
+              <img className='header-cart-img' src={require('../images/cart.png')} alt='cart'></img>
             </div>
         }
       </div>

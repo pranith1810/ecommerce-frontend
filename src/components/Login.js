@@ -10,7 +10,7 @@ class Login extends React.Component {
       password: '',
       emailError: '',
       userExistError: '',
-      userConfirmError:''
+      userConfirmError: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -54,11 +54,15 @@ class Login extends React.Component {
           this.setState({
             emailError: '',
             userExistError: '',
-            userConfirmError:''
+            userConfirmError: ''
           })
-          this.props.changeLoginStatus();
+          this.props.changeLogin();
           this.props.history.push('/home');
+          return response.json();
         }
+      })
+      .then((jsonResponse) => {
+        localStorage.setItem('token',jsonResponse.token);
       })
       .catch((error) => {
         console.log(error);

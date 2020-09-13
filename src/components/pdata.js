@@ -4,7 +4,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'clothing',
-  image: require('../images/shirt.png')
+  image: require('../images/shirt.png'),
+  imageName: 'shirt.png',
 },
 {
   id: 2,
@@ -12,7 +13,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'clothing',
-  image: require('../images/jeans.png')
+  image: require('../images/jeans.png'),
+  imageName: 'jeans.png',
 },
 {
   id: 3,
@@ -20,7 +22,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'clothing',
-  image: require('../images/tshirt.jpeg')
+  image: require('../images/tshirt.jpeg'),
+  imageName: 'tshirt.jpeg',
 },
 {
   id: 4,
@@ -28,7 +31,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'accessories',
-  image: require('../images/glasses.png')
+  image: require('../images/glasses.png'),
+  imageName: 'glasses.png',
 },
 {
   id: 5,
@@ -36,7 +40,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'accessories',
-  image: require('../images/glasses.png')
+  image: require('../images/glasses.png'),
+  imageName: 'glasses.png',
 },
 {
   id: 6,
@@ -44,7 +49,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'accessories',
-  image: require('../images/glasses.png')
+  image: require('../images/glasses.png'),
+  imageName: 'glasses.png',
 },
 {
   id: 7,
@@ -52,7 +58,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'accessories',
-  image: require('../images/glasses.png')
+  image: require('../images/glasses.png'),
+  imageName: 'glasses.png',
 },
 {
   id: 8,
@@ -60,7 +67,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'accessories',
-  image: require('../images/glasses.png')
+  image: require('../images/glasses.png'),
+  imageName: 'glasses.png',
 },
 {
   id: 9,
@@ -68,7 +76,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'clothing',
-  image: require('../images/jeans.png')
+  image: require('../images/jeans.png'),
+  imageName: 'jeans.png',
 },
 {
   id: 10,
@@ -76,7 +85,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'clothing',
-  image: require('../images/tshirt.jpeg')
+  image: require('../images/tshirt.jpeg'),
+  imageName: 'tshirt.jpeg',
 },
 {
   id: 11,
@@ -84,7 +94,8 @@ let pdata = [{
   topProduct: true,
   price: '₹100',
   type :'accessories',
-  image: require('../images/glasses.png')
+  image: require('../images/glasses.png'),
+  imageName: 'glasses.png',
 },
 ]
 

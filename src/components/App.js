@@ -14,17 +14,25 @@ import Login from './Login.js';
 
 class App extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      loginStatus : false
+      loginStatus: localStorage.getItem('loginStatus')
     }
-    this.changeLoginStatus = this.changeLoginStatus.bind(this);
+    this.changeLogin = this.changeLogin.bind(this);
+    this.changeLogout = this.changeLogout.bind(this);
   }
 
-  changeLoginStatus(){
+  changeLogin() {
     this.setState({
-      loginStatus: !this.state.loginStatus
+      loginStatus: true
+    })
+    localStorage.setItem('loginStatus', true);
+  }
+
+  changeLogout() {
+    this.setState({
+      loginStatus: false
     })
   }
 
@@ -32,10 +40,10 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <Header data={this.state} changeLoginStatus={this.changeLoginStatus} />
+          <Header data={this.state} changeLogout={this.changeLogout} />
           <Switch>
             <Route path='/login'>
-              <Login data={this.state} changeLoginStatus={this.changeLoginStatus} />
+              <Login data={this.state} changeLogin={this.changeLogin} />
             </Route>
             <Route path='/signup'>
               <SignUp />
