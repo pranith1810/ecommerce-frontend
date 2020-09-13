@@ -65,7 +65,7 @@ class Login extends React.Component {
         localStorage.setItem('token',jsonResponse.token);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       })
   }
 

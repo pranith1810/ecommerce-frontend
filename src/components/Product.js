@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {storage} from '../firebase/config';
+import { storage } from '../firebase/config';
 
 
 class Product extends React.Component {
@@ -12,17 +12,17 @@ class Product extends React.Component {
     }
   }
 
-  componentDidMount(){
-      let storageRef = storage.ref();
+  componentDidMount() {
+    let storageRef = storage.ref();
     storageRef
-      .child(`${this.props.data.imageName}`)
+      .child(`${this.props.data.imgPath}`)
       .getDownloadURL()
       .then(url => {
         this.setState({
           imageUrl: url,
         })
       })
-      .catch(err=>{
+      .catch(err => {
         console.error(err);
       })
   }
@@ -34,8 +34,8 @@ class Product extends React.Component {
           <img className='product-img' src={this.state.imageUrl} alt='product' />
           <h5 className='product-name'>{this.props.data.name}</h5>
         </Link>
-        <p className='product-price'>{this.props.data.price}</p>
-      </div>
+        <p className='product-price'>₹{this.props.data.price_rupees}</p>
+      </div >
     );
   }
 }

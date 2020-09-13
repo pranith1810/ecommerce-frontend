@@ -1,24 +1,34 @@
 import React from 'react';
 import Product from './Product.js';
 import '../styles/Home.css';
-import pdata from './pdata';
 
 class Home extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      productsData: pdata
+      productsData: []
     }
   }
 
-  componentDidMount(){
-    
+  componentDidMount() {
+    fetch('http://localhost:8080/product/home')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          productsData: data
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   render() {
     const arrayOfProducts = this.state.productsData.map((product) => {
-      if (product.topProduct) {
+      if (product.top_product) {
         return <Product key={product.id} data={product} />
       }
     })

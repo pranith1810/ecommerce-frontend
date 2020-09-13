@@ -56,10 +56,12 @@ class App extends React.Component {
               <AllItemsList />
               <Accessories />
             </Route>
-            <Route path='/product/:id'>
-              <AllItemsList />
-              <ProductScreen />
-            </Route>
+            <Route path='/product/:id' render={props =>
+              <div>
+                <AllItemsList />
+                <ProductScreen {...props} />
+              </div>}
+            />
             <Route path='/'>
               <AllItemsList />
               <Home />

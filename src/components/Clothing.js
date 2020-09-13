@@ -1,6 +1,5 @@
 import React from 'react';
 import Product from './Product.js';
-import pdata from './pdata';
 import '../styles/Clothing.css';
 
 class Clothing extends React.Component {
@@ -8,8 +7,23 @@ class Clothing extends React.Component {
   constructor() {
     super();
     this.state = {
-      productsData: pdata
+      productsData: []
     }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:8080/product/clothing')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          productsData: data
+        })
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   render() {
