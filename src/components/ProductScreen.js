@@ -42,7 +42,7 @@ class ProductScreen extends React.Component {
   }
 
   handleAddCartClick() {
-    if (this.props.data.loginStatus === null) {
+    if (!this.props.data.loginStatus) {
       alert('Please login before adding to cart!');
     }
     else {

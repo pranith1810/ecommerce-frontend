@@ -14,6 +14,7 @@ import Login from './Login.js';
 import Cart from './Cart.js';
 import Admin from './Admin.js';
 import AdminAdd from './AdminAdd.js';
+import AdminUpdate from './AdminUpdate.js';
 
 class App extends React.Component {
 
@@ -64,6 +65,11 @@ class App extends React.Component {
             <Route path='/admin/add'>
               <AdminAdd />
             </Route>
+            <Route exact path='/admin/update/:id' render={props =>
+              <div>
+                <AdminUpdate {...props} />
+              </div>}
+            />
             <Route path='/signup'>
               <SignUp />
             </Route>
@@ -75,7 +81,7 @@ class App extends React.Component {
               <AllItemsList />
               <Accessories />
             </Route>
-            <Route path='/product/:id' render={props =>
+            <Route exact path='/product/:id' render={props =>
               <div>
                 <AllItemsList />
                 <ProductScreen {...props} data={this.state} />

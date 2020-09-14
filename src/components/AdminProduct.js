@@ -1,5 +1,6 @@
 import React from 'react';
 import { storage } from '../firebase/config';
+import { Link } from 'react-router-dom';
 import '../styles/AdminProduct.css';
 
 class AdminProduct extends React.Component {
@@ -36,11 +37,7 @@ class AdminProduct extends React.Component {
         }),
     })
       .then(() => {
-        const ref = storage.ref().child(`${this.props.data.imgPath}`);
-        ref.delete()
-          .catch(function (error) {
-            console.error(error);
-          });
+        //Delete from firebase
         this.props.getProductData();
       })
       .catch((error) => {
@@ -56,7 +53,10 @@ class AdminProduct extends React.Component {
           <h5 className='admin-product-name'>{this.props.data.name}</h5>
           <p className='admin-product-price'>Price: ₹{this.props.data.price_rupees}</p>
         </div>
-        <button onClick={this.handleDeleteClick} className='admin-product-delete'>Delete</button>
+        <div>
+          <button onClick={this.handleDeleteClick} className='admin-product-delete'>Delete</button>
+          <Link to={`/admin/update/${this.props.data.id}`}><div className='admin-product-update'>Update</div></Link>
+        </div>
       </div>
     );
   }

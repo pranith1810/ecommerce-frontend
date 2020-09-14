@@ -13,8 +13,8 @@ class Header extends React.Component {
 
   handleLogoutClick() {
     this.props.changeLogout();
-    this.props.history.push('/home');
     localStorage.clear();
+    this.props.history.push('/home');
   }
 
   handleCartClick() {

@@ -3,21 +3,40 @@ import '../styles/AdminAdd.css';
 import { storage } from '../firebase/config';
 import { withRouter } from 'react-router-dom';
 
-class AdminAdd extends React.Component {
+class AdminUpdate extends React.Component {
 
   constructor() {
     super();
     this.state = {
       productName: '',
-      isTopProduct: 'Yes',
+      isTopProduct: '',
       price: '',
-      productType: 'Accessories',
+      productType: '',
       nameError: '',
       priceError: '',
     }
     this.image = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost:8080/product/${this.props.match.params.id}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          productId: data[0].id,
+          productName: data[0].name,
+          isTopProduct: data[0].top_product === 0 ? 'No' : 'Yes',
+          price: data[0].price_rupees,
+          productType: data[0].type === 'accessories' ? 'Accessories' : 'Clothing',
+        })
+      })
+      .catch((error) => {
+        console.error(error);
+      })
   }
 
   handleChange(event) {
@@ -57,7 +76,7 @@ class AdminAdd extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      fetch('http://localhost:8080/product/add', {
+      fetch('http://localhost:8080/product/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,6 +84,7 @@ class AdminAdd extends React.Component {
         body: JSON.stringify(
           {
             token: localStorage.getItem('token'),
+            productId: this.state.productId,
             name: this.state.productName,
             isTopProduct: this.state.isTopProduct,
             price: this.state.price,
@@ -162,4 +182,4 @@ class AdminAdd extends React.Component {
   }
 }
 
-export default withRouter(AdminAdd);
+export default withRouter(AdminUpdate);

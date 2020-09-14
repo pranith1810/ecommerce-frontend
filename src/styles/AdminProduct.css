@@ -24,9 +24,20 @@
 
 .admin-product-delete {
   font-size: 1.2em;
+  margin: 1rem;
   padding: 0.5rem;
   background-color: #ec0101;
 } 
+
+.admin-product-update {
+  margin: 1rem;
+  background-color: #4e89ae;
+  color: #fff;
+  padding: 0.5rem 0;
+  border: 1px solid;
+  font-size: 0.8em;
+  text-align: center;
+}
 
 .admin-product-price {
   margin: 0.5rem;
