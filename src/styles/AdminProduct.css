@@ -1,6 +1,7 @@
 .admin-product-container {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   background-color: #fff;
   border-radius: 3%;
   margin: 1rem;
@@ -20,6 +21,12 @@
   margin: 0.5rem;
   font-size: 1em;
 }
+
+.admin-product-delete {
+  font-size: 1.2em;
+  padding: 0.5rem;
+  background-color: #ec0101;
+} 
 
 .admin-product-price {
   margin: 0.5rem;

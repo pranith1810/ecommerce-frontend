@@ -9,9 +9,10 @@ class Admin extends React.Component {
     this.state = {
       allProductData: [],
     }
+    this.getProductData = this.getProductData.bind(this);
   }
 
-  componentDidMount() {
+  getProductData() {
     fetch('http://localhost:8080/product/all')
       .then((response) => {
         return response.json();
@@ -26,9 +27,13 @@ class Admin extends React.Component {
       });
   }
 
+  componentDidMount() {
+    this.getProductData();
+  }
+
   render() {
     const arrayOfProducts = this.state.allProductData.map((product) => {
-      return <AdminProduct key={product.id} data={product} />;
+      return <AdminProduct key={product.id} data={product} getProductData={this.getProductData} />;
     })
     return (
       <div className='admin-controls'>

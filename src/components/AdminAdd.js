@@ -1,5 +1,7 @@
 import React from 'react';
 import '../styles/AdminAdd.css';
+import { storage } from '../firebase/config';
+import { withRouter } from 'react-router-dom';
 
 class AdminAdd extends React.Component {
 
@@ -7,13 +9,13 @@ class AdminAdd extends React.Component {
     super();
     this.state = {
       productName: '',
-      isTopProduct: '',
+      isTopProduct: 'Yes',
       price: '',
-      productType: '',
-      imgPath: '',
-      nameError:'',
-      priceError:'',
+      productType: 'Accessories',
+      nameError: '',
+      priceError: '',
     }
+    this.image = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
@@ -53,9 +55,41 @@ class AdminAdd extends React.Component {
     return true;
   }
 
-  handleFormSubmit(event){
-    if(this.validate()){
-      console.log('submitted');
+  handleFormSubmit(event) {
+    if (this.validate()) {
+      fetch('http://localhost:8080/product/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+          {
+            token: localStorage.getItem('token'),
+            name: this.state.productName,
+            isTopProduct: this.state.isTopProduct,
+            price: this.state.price,
+            productType: this.state.productType,
+            imgPath: this.image.current.files[0].name,
+          }),
+      })
+        .then((response) => {
+          if (response.status === 400) {
+            this.setState({
+              detailsInvalid: 'Please enter correct details!',
+            })
+          } else {
+            return storage.ref(`${this.image.current.files[0].name}`).put(this.image.current.files[0]);
+          }
+        })
+        .then(() => {
+          this.setState({
+            detailsInvalid: ''
+          })
+          this.props.history.push('/admin');
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
     event.preventDefault();
   }
@@ -113,14 +147,19 @@ class AdminAdd extends React.Component {
               type="file"
               name="img"
               accept="image/*"
+              ref={this.image}
               required={true}
             />
           </div>
           <button type='submit'>Submit</button>
+          {
+            this.state.detailsInvalid !== '' &&
+            <div className='error-message'>{this.state.detailsInvalid}</div>
+          }
         </form>
       </div>
     );
   }
 }
 
-export default AdminAdd;
+export default withRouter(AdminAdd);
