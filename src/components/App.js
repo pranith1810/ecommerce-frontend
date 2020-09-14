@@ -12,28 +12,37 @@ import ProductScreen from './ProductScreen.js';
 import SignUp from './SignUp.js';
 import Login from './Login.js';
 import Cart from './Cart.js';
+import Admin from './Admin.js';
+import AdminAdd from './AdminAdd.js';
 
 class App extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      loginStatus: localStorage.getItem('loginStatus')
+      loginStatus: localStorage.getItem('loginStatus'),
+      adminLogin: localStorage.getItem('adminLogin'),
     }
     this.changeLogin = this.changeLogin.bind(this);
     this.changeLogout = this.changeLogout.bind(this);
   }
 
-  changeLogin() {
+  changeLogin(isAdmin) {
     this.setState({
-      loginStatus: true
+      loginStatus: true,
+      adminLogin: isAdmin === 0 ? 'false' : 'true',
     })
     localStorage.setItem('loginStatus', true);
+    if (isAdmin === 0) {
+      localStorage.setItem('adminLogin', false);
+    } else {
+      localStorage.setItem('adminLogin', true);
+    }
   }
 
   changeLogout() {
     this.setState({
-      loginStatus: false
+      loginStatus: false,
     })
   }
 
@@ -47,7 +56,13 @@ class App extends React.Component {
               <Login data={this.state} changeLogin={this.changeLogin} />
             </Route>
             <Route path='/cart'>
-              <Cart data={this.state}/>
+              <Cart data={this.state} />
+            </Route>
+            <Route exact path='/admin'>
+              <Admin />
+            </Route>
+            <Route path='/admin/add'>
+              <AdminAdd />
             </Route>
             <Route path='/signup'>
               <SignUp />

@@ -56,13 +56,13 @@ class Login extends React.Component {
             userExistError: '',
             userConfirmError: ''
           })
-          this.props.changeLogin();
-          this.props.history.push('/home');
           return response.json();
         }
       })
       .then((jsonResponse) => {
-        localStorage.setItem('token',jsonResponse.token);
+        localStorage.setItem('token', jsonResponse.token);
+        this.props.changeLogin(jsonResponse.isAdmin);
+        this.props.history.push('/home');
       })
       .catch((error) => {
         console.error(error);

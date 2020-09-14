@@ -1,0 +1,28 @@
+.admin-product-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  border-radius: 3%;
+  margin: 1rem;
+}
+
+.admin-product-img {
+  height: 8rem;
+  width: 10%;
+}
+
+.admin-product-description{
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-product-name {
+  margin: 0.5rem;
+  font-size: 1em;
+}
+
+.admin-product-price {
+  margin: 0.5rem;
+  font-size: 1em;
+  color: #ed6663;
+}

@@ -132,7 +132,6 @@ class CartProduct extends React.Component {
           <button onClick={this.handleMinusClick} className='minus'>-</button>
           <button onClick={this.handleDeleteClick} className='delete'>Delete</button>
         </div>
-
       </div>
     );
   }

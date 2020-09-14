@@ -17,7 +17,7 @@ class Header extends React.Component {
     localStorage.clear();
   }
 
-  handleCartClick(){
+  handleCartClick() {
     this.props.history.push('/cart');
   }
 
@@ -36,11 +36,19 @@ class Header extends React.Component {
             :
             <div className='header-links-login'>
               <button className='header-logout' onClick={this.handleLogoutClick}>Log out</button>
-              <img className='header-cart-img' src={require('../images/cart.png')} onClick={this.handleCartClick} alt='cart'></img>
+              {
+                this.props.data.adminLogin === 'true' &&
+                <Link to='/admin'><div className='header-admin'>Admin</div></Link>
+              }
+              {
+                this.props.data.adminLogin === 'false' &&
+                <img className='header-cart-img' src={require('../images/cart.png')} onClick={this.handleCartClick} alt='cart'></img>
+              }
             </div>
         }
       </div>
     );
+
   }
 }
 

@@ -1,0 +1,17 @@
+.admin-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-product-link {
+  background-color: #4e89ae;
+  margin: 1rem;
+  padding: 0.5rem;
+}
+
+.admin-controls a{
+  text-decoration: none;
+  color: #ffffff;
+  align-self: center;
+  font-size: 1.5em;
+}

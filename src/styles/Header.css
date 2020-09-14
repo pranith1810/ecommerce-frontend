@@ -58,3 +58,10 @@
   width: 2rem;
   margin: 1rem;
 }
+
+.header-admin {
+  margin: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10%;
+}
