@@ -5,18 +5,20 @@ class Cart extends React.Component {
   constructor() {
     super();
     this.state = {
-      cartData: []
+      cartData: [],
+      cartTotal: 0,
     };
+    this.getCartData = this.getCartData.bind(this);
   }
 
-  componentDidMount() {
+  getCartData() {
     fetch(`http://localhost:8080/cart/all/${localStorage.getItem('token')}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         this.setState({
-          cartData: data
+          cartData: data,
         })
       })
       .catch((err) => {
@@ -24,15 +26,22 @@ class Cart extends React.Component {
       });
   }
 
+  componentDidMount() {
+    this.getCartData();
+  }
+
   render() {
     const arrayOfProducts = this.state.cartData.map((product) => {
-        return <CartProduct key={product.product_id} data={product} />;
+      return <CartProduct key={product.product_id} data={product} getCartData={this.getCartData} />;
     })
 
     return (
       <div>
         {this.props.data.loginStatus ?
-          <div>{ arrayOfProducts }</div>
+          <div>
+            <div>{arrayOfProducts}</div>
+            <p>Cart Total:{this.state.cartTotal} </p>
+          </div>
           :
           <p>Please login for viewing your cart!</p>
         }

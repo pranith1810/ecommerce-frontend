@@ -61,6 +61,7 @@ class ProductScreen extends React.Component {
           if (response.status === 409) {
             this.setState({
               productInCartError: 'Product already added to the cart!',
+              productInCart: '',
             })
           } else {
             this.setState({

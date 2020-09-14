@@ -14,7 +14,6 @@
 .cart-product-description{
   display: flex;
   flex-direction: column;
-  border: 1px solid;
 }
 
 .cart-product-name {
@@ -25,5 +24,43 @@
 .cart-product-price {
   margin: 1rem;
   font-size: 1.5em;
+  color: #ed6663;
+}
+
+.cart-quantity {
+  margin: 1rem;
+  font-size: 1.5em;
+}
+
+.cart-quantity-buttons {
+  margin: 1rem;
+}
+
+.cart-quantity-buttons .plus{
+  width: 2rem;
+  cursor: pointer;
+  font-size: 2em;
+}
+
+.cart-quantity-buttons .minus{
+  width: 2rem;
+  cursor: pointer;
+  font-size: 2em;
+}
+
+.cart-quantity-buttons .delete{
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-left: 2rem;
+}
+
+.total-price-product {
+  margin: 1rem;
+  font-size: 1.5em;
+}
+
+.quantity-error-message {
+  margin: 0.9rem;
+  font-size: 0.9em;
   color: #ed6663;
 }
