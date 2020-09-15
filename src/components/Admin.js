@@ -13,7 +13,7 @@ class Admin extends React.Component {
   }
 
   getProductData() {
-    fetch('http://localhost:8080/product/all')
+    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/all')
       .then((response) => {
         return response.json();
       })

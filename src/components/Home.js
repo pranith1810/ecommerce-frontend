@@ -12,7 +12,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/product/home')
+    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/home')
       .then((response) => {
         return response.json();
       })

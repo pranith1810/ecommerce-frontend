@@ -57,7 +57,7 @@ class AdminAdd extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      fetch('http://localhost:8080/product/add', {
+      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

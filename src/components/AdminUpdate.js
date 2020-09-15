@@ -21,7 +21,7 @@ class AdminUpdate extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:8080/product/${this.props.match.params.id}`)
+    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/product/${this.props.match.params.id}`)
       .then((response) => {
         return response.json();
       })
@@ -76,7 +76,7 @@ class AdminUpdate extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      fetch('http://localhost:8080/product/update', {
+      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

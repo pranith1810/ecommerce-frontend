@@ -56,7 +56,7 @@ class SignUp extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      fetch('http://localhost:8080/signup', {
+      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

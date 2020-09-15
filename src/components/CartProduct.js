@@ -16,7 +16,7 @@ class CartProduct extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:8080/product/${this.props.data.product_id}`)
+    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/product/${this.props.data.product_id}`)
       .then((response) => {
         return response.json();
       })
@@ -44,7 +44,7 @@ class CartProduct extends React.Component {
   }
 
   handlePlusClick() {
-    fetch('http://localhost:8080/cart/update/add', {
+    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/update/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,14 +56,16 @@ class CartProduct extends React.Component {
         }),
     })
       .then(() => {
-        this.setState({
-          productQuantity: this.state.productQuantity + 1,
-          productQuantityError: '',
-        })
+        this.props.getCartData();
       })
       .catch((error) => {
         console.error(error);
       });
+
+    this.setState({
+      productQuantity: this.state.productQuantity + 1,
+      productQuantityError: '',
+    })
   }
 
   handleMinusClick() {
@@ -73,7 +75,7 @@ class CartProduct extends React.Component {
       });
     }
     else {
-      fetch('http://localhost:8080/cart/update/minus', {
+      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/update/minus', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,18 +87,20 @@ class CartProduct extends React.Component {
           }),
       })
         .then(() => {
-          this.setState({
-            productQuantity: this.state.productQuantity - 1,
-          })
+          this.props.getCartData();
         })
         .catch((error) => {
           console.error(error);
         });
+        
+      this.setState({
+        productQuantity: this.state.productQuantity - 1,
+      })
     }
   }
 
   handleDeleteClick() {
-    fetch('http://localhost:8080/cart/delete', {
+    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/delete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

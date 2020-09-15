@@ -25,7 +25,7 @@ class Login extends React.Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
-    fetch('http://localhost:8080/login', {
+    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

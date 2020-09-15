@@ -12,7 +12,7 @@ class Clothing extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/product/clothing')
+    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/clothing')
       .then((response) => {
         return response.json();
       })

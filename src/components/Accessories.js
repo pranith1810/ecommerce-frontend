@@ -12,7 +12,7 @@ class accessories extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/product/accessories')
+    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/accessories')
       .then((response) => {
         return response.json();
       })

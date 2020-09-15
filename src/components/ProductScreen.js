@@ -16,7 +16,7 @@ class ProductScreen extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:8080/product/${this.props.match.params.id}`)
+    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/product/${this.props.match.params.id}`)
       .then((response) => {
         return response.json();
       })
@@ -46,7 +46,7 @@ class ProductScreen extends React.Component {
       alert('Please login before adding to cart!');
     }
     else {
-      fetch('http://localhost:8080/cart/add', {
+      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

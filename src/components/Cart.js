@@ -1,5 +1,6 @@
 import React from 'react';
 import CartProduct from './CartProduct.js';
+import '../styles/Cart.css';
 
 class Cart extends React.Component {
   constructor() {
@@ -12,13 +13,23 @@ class Cart extends React.Component {
   }
 
   getCartData() {
-    fetch(`http://localhost:8080/cart/all/${localStorage.getItem('token')}`)
+    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/cart/all/${localStorage.getItem('token')}`)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         this.setState({
           cartData: data,
+        })
+        return data;
+      })
+      .then((data)=>{
+        let cartTotal = 0;
+        data.forEach((product) => {
+          cartTotal = cartTotal + product.price_rupees*product.quantity;
+        });
+        this.setState({
+          cartTotal
         })
       })
       .catch((err) => {
@@ -40,7 +51,7 @@ class Cart extends React.Component {
         {this.props.data.loginStatus ?
           <div>
             <div>{arrayOfProducts}</div>
-            <p>Cart Total:{this.state.cartTotal} </p>
+            <p className='cart-total'>Cart Total: ₹{this.state.cartTotal} </p>
           </div>
           :
           <p>Please login for viewing your cart!</p>
