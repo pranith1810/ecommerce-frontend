@@ -26,7 +26,7 @@ class AdminProduct extends React.Component {
 
   handleDeleteClick() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/delete', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },

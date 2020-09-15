@@ -77,7 +77,7 @@ class AdminUpdate extends React.Component {
   handleFormSubmit(event) {
     if (this.validate()) {
       fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/update', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },

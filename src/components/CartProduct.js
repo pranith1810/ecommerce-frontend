@@ -45,7 +45,7 @@ class CartProduct extends React.Component {
 
   handlePlusClick() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/update/add', {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -76,7 +76,7 @@ class CartProduct extends React.Component {
     }
     else {
       fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/update/minus', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -101,7 +101,7 @@ class CartProduct extends React.Component {
 
   handleDeleteClick() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/delete', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
