@@ -62,7 +62,7 @@ class Login extends React.Component {
       .then((jsonResponse) => {
         localStorage.setItem('token', jsonResponse.token);
         this.props.changeLogin(jsonResponse.isAdmin);
-        this.props.history.push('/home');
+        this.props.history.push('/');
       })
       .catch((error) => {
         console.error(error);
