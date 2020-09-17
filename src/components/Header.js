@@ -14,7 +14,7 @@ class Header extends React.Component {
   handleLogoutClick() {
     this.props.changeLogout();
     localStorage.clear();
-    this.props.history.push('/home');
+    this.props.history.push('/');
   }
 
   handleCartClick() {
