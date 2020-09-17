@@ -15,6 +15,7 @@ import Cart from './Cart.js';
 import Admin from './Admin.js';
 import AdminAdd from './AdminAdd.js';
 import AdminUpdate from './AdminUpdate.js';
+import NotFound from './NotFound.js';
 
 class App extends React.Component {
 
@@ -62,7 +63,7 @@ class App extends React.Component {
             <Route exact path='/admin'>
               <Admin />
             </Route>
-            <Route path='/admin/add'>
+            <Route exact path='/admin/add'>
               <AdminAdd />
             </Route>
             <Route exact path='/admin/update/:id' render={props =>
@@ -87,9 +88,12 @@ class App extends React.Component {
                 <ProductScreen {...props} data={this.state} />
               </div>}
             />
-            <Route path='/'>
+            <Route exact path='/'>
               <AllItemsList />
               <Home />
+            </Route>
+            <Route>
+              <NotFound />
             </Route>
           </Switch>
         </div>
