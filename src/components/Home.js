@@ -1,15 +1,10 @@
 import React from 'react';
 import Product from './Product.js';
 import '../styles/Home.css';
+import { connect } from 'react-redux';
+import { home } from '../actions/homeAction';
 
 class Home extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      productsData: []
-    }
-  }
 
   componentDidMount() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/home')
@@ -17,9 +12,7 @@ class Home extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
-          productsData: data
-        })
+        this.props.dispatch(home(data));
       })
       .catch((err) => {
         console.error(err);
@@ -27,8 +20,8 @@ class Home extends React.Component {
   }
 
   render() {
-    const arrayOfProducts = this.state.productsData.map((product) => {
-        return <Product key={product.id} data={product} />
+    const arrayOfProducts = this.props.homeProductsData.map((product) => {
+      return <Product key={product.id} data={product} />
     })
 
     return (
@@ -42,4 +35,10 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    homeProductsData: state.home.homeProductsData,
+  };
+}
+
+export default connect(mapStateToProps)(Home);

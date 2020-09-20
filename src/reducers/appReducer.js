@@ -1,4 +1,3 @@
-// import { LOGIN, LOGOUT } from '../actions/types';
 
 const initialState = {
   loginStatus: localStorage.getItem('loginStatus'),

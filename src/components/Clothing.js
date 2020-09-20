@@ -1,15 +1,10 @@
 import React from 'react';
 import Product from './Product.js';
 import '../styles/Clothing.css';
+import { connect } from 'react-redux';
+import { clothing } from '../actions/clothingAction.js';
 
 class Clothing extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      productsData: []
-    }
-  }
 
   componentDidMount() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/clothing')
@@ -17,9 +12,7 @@ class Clothing extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
-          productsData: data
-        })
+        this.props.dispatch(clothing(data));
       })
       .catch((err) => {
         console.error(err);
@@ -27,8 +20,8 @@ class Clothing extends React.Component {
   }
 
   render() {
-    const arrayOfProducts = this.state.productsData.map((product) => {
-        return <Product key={product.id} data={product} />
+    const arrayOfProducts = this.props.clothingData.map((product) => {
+      return <Product key={product.id} data={product} />
     })
 
     return (
@@ -42,4 +35,10 @@ class Clothing extends React.Component {
   }
 }
 
-export default Clothing;
+function mapStateToProps(state) {
+  return {
+    clothingData: state.clothing.clothingData,
+  };
+}
+
+export default connect(mapStateToProps)(Clothing);

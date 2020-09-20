@@ -1,15 +1,10 @@
 import React from 'react';
 import Product from './Product.js';
 import '../styles/Accessories.css';
+import {connect} from 'react-redux';
+import {accessories} from '../actions/accessoriesAction';
 
-class accessories extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      productsData: []
-    }
-  }
+class Accessories extends React.Component {
 
   componentDidMount() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/accessories')
@@ -17,9 +12,7 @@ class accessories extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
-          productsData: data
-        })
+        this.props.dispatch(accessories(data));
       })
       .catch((err) => {
         console.error(err);
@@ -27,8 +20,8 @@ class accessories extends React.Component {
   }
 
   render() {
-    const arrayOfProducts = this.state.productsData.map((product) => {
-        return <Product key={product.id} data={product} />
+    const arrayOfProducts = this.props.accessoriesData.map((product) => {
+      return <Product key={product.id} data={product} />
     })
 
     return (
@@ -42,4 +35,10 @@ class accessories extends React.Component {
   }
 }
 
-export default accessories;
+function mapStateToProps(state) {
+  return {
+    accessoriesData: state.accessories.accessoriesData,
+  };
+}
+
+export default connect(mapStateToProps)(Accessories);
