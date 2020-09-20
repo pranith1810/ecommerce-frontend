@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import '../styles/Login.css';
+import { connect } from 'react-redux';
+import { login } from '../actions/loginAction';
 
 class Login extends React.Component {
   constructor() {
@@ -61,7 +63,13 @@ class Login extends React.Component {
       })
       .then((jsonResponse) => {
         localStorage.setItem('token', jsonResponse.token);
-        this.props.changeLogin(jsonResponse.isAdmin);
+        this.props.dispatch(login(jsonResponse.isAdmin));
+        localStorage.setItem('loginStatus', true);
+        if (jsonResponse.isAdmin === 0) {
+          localStorage.setItem('adminLogin', false);
+        } else {
+          localStorage.setItem('adminLogin', true);
+        }
         this.props.history.push('/');
       })
       .catch((error) => {
@@ -72,7 +80,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className='login-container'>
-        {!this.props.data.loginStatus ?
+        {!this.props.loginStatus ?
           <form className='login-form' onSubmit={this.handleFormSubmit}>
             <div>
               e-mail:
@@ -120,5 +128,11 @@ class Login extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    loginStatus: state.app.loginStatus,
+  };
+}
 
-export default withRouter(Login);
+
+export default connect(mapStateToProps)(withRouter(Login));
