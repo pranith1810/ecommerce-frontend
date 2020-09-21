@@ -30,7 +30,7 @@ class App extends React.Component {
               <Login changeLogin={this.changeLogin} />
             </Route>
             <Route path='/cart'>
-              <Cart data={this.state} />
+              <Cart />
             </Route>
             <Route exact path='/admin'>
               <Admin />
@@ -57,7 +57,7 @@ class App extends React.Component {
             <Route exact path='/product/:id' render={props =>
               <div>
                 <AllItemsList />
-                <ProductScreen {...props} data={this.state} />
+                <ProductScreen {...props} />
               </div>}
             />
             <Route exact path='/'>

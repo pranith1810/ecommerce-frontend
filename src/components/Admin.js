@@ -2,15 +2,10 @@ import React from 'react';
 import AdminProduct from './AdminProduct.js';
 import { Link } from 'react-router-dom';
 import '../styles/Admin.css';
+import { connect } from 'react-redux';
+import { admin } from '../actions/adminAction';
 
 class Admin extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      allProductData: [],
-    }
-    this.getProductData = this.getProductData.bind(this);
-  }
 
   getProductData() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/all')
@@ -18,9 +13,7 @@ class Admin extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
-          allProductData: data,
-        })
+        this.props.dispatch(admin(data));
       })
       .catch((err) => {
         console.error(err);
@@ -32,7 +25,7 @@ class Admin extends React.Component {
   }
 
   render() {
-    const arrayOfProducts = this.state.allProductData.map((product) => {
+    const arrayOfProducts = this.props.allProductsData.map((product) => {
       return <AdminProduct key={product.id} data={product} getProductData={this.getProductData} />;
     })
     return (
@@ -44,4 +37,10 @@ class Admin extends React.Component {
   }
 }
 
-export default Admin;
+function mapStateToProps(state) {
+  return {
+    allProductsData: state.admin.allProductsData,
+  };
+}
+
+export default connect(mapStateToProps)(Admin);

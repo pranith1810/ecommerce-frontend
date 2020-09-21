@@ -1,14 +1,14 @@
 import React from 'react';
 import CartProduct from './CartProduct.js';
 import '../styles/Cart.css';
+import { connect } from 'react-redux';
+import { cartProducts } from '../actions/cartProductsAction';
+import { cartTotal } from '../actions/cartTotalAction';
 
 class Cart extends React.Component {
-  constructor() {
+
+  constructor(){
     super();
-    this.state = {
-      cartData: [],
-      cartTotal: 0,
-    };
     this.getCartData = this.getCartData.bind(this);
   }
 
@@ -18,19 +18,15 @@ class Cart extends React.Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
-          cartData: data,
-        })
+        this.props.dispatch(cartProducts(data));
         return data;
       })
-      .then((data)=>{
-        let cartTotal = 0;
+      .then((data) => {
+        let cartTotalPrice = 0;
         data.forEach((product) => {
-          cartTotal = cartTotal + product.price_rupees*product.quantity;
+          cartTotalPrice = cartTotalPrice + product.price_rupees * product.quantity;
         });
-        this.setState({
-          cartTotal
-        })
+        this.props.dispatch(cartTotal(cartTotalPrice));
       })
       .catch((err) => {
         console.error(err);
@@ -42,16 +38,16 @@ class Cart extends React.Component {
   }
 
   render() {
-    const arrayOfProducts = this.state.cartData.map((product) => {
+    const arrayOfProducts = this.props.cartData.map((product) => {
       return <CartProduct key={product.product_id} data={product} getCartData={this.getCartData} />;
     })
 
     return (
       <div>
-        {this.props.data.loginStatus ?
+        {this.props.loginStatus ?
           <div>
             <div>{arrayOfProducts}</div>
-            <p className='cart-total'>Cart Total: ₹{this.state.cartTotal} </p>
+            <p className='cart-total'>Cart Total: ₹{this.props.cartTotal} </p>
           </div>
           :
           <p>Please login for viewing your cart!</p>
@@ -61,4 +57,12 @@ class Cart extends React.Component {
   }
 }
 
-export default Cart;
+function mapStateToProps(state) {
+  return {
+    cartData: state.cart.cartData,
+    cartTotal: state.cart.cartTotal,
+    loginStatus: state.app.loginStatus,
+  };
+}
+
+export default connect(mapStateToProps)(Cart);
