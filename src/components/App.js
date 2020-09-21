@@ -16,49 +16,21 @@ import Admin from './Admin.js';
 import AdminAdd from './AdminAdd.js';
 import AdminUpdate from './AdminUpdate.js';
 import NotFound from './NotFound.js';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
-
-  constructor() {
-    super();
-    this.state = {
-      loginStatus: localStorage.getItem('loginStatus'),
-      adminLogin: localStorage.getItem('adminLogin'),
-    }
-    this.changeLogin = this.changeLogin.bind(this);
-    this.changeLogout = this.changeLogout.bind(this);
-  }
-
-  changeLogin(isAdmin) {
-    this.setState({
-      loginStatus: true,
-      adminLogin: isAdmin === 0 ? 'false' : 'true',
-    })
-    localStorage.setItem('loginStatus', true);
-    if (isAdmin === 0) {
-      localStorage.setItem('adminLogin', false);
-    } else {
-      localStorage.setItem('adminLogin', true);
-    }
-  }
-
-  changeLogout() {
-    this.setState({
-      loginStatus: false,
-    })
-  }
 
   render() {
     return (
       <Router>
         <div className="App">
-          <Header data={this.state} changeLogout={this.changeLogout} />
+          <Header changeLogout={this.changeLogout} />
           <Switch>
             <Route path='/login'>
-              <Login data={this.state} changeLogin={this.changeLogin} />
+              <Login changeLogin={this.changeLogin} />
             </Route>
             <Route path='/cart'>
-              <Cart data={this.state} />
+              <Cart />
             </Route>
             <Route exact path='/admin'>
               <Admin />
@@ -85,7 +57,7 @@ class App extends React.Component {
             <Route exact path='/product/:id' render={props =>
               <div>
                 <AllItemsList />
-                <ProductScreen {...props} data={this.state} />
+                <ProductScreen {...props} />
               </div>}
             />
             <Route exact path='/'>
@@ -102,4 +74,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect()(App);

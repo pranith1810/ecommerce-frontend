@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/ProductScreen.css';
 import { storage } from '../firebase/config';
+import { connect } from 'react-redux';
 
 
 class ProductScreen extends React.Component {
@@ -42,7 +43,7 @@ class ProductScreen extends React.Component {
   }
 
   handleAddCartClick() {
-    if (!this.props.data.loginStatus) {
+    if (!this.props.loginStatus) {
       alert('Please login before adding to cart!');
     }
     else {
@@ -93,5 +94,11 @@ class ProductScreen extends React.Component {
   }
 }
 
-export default ProductScreen;
+function mapStateToProps(state) {
+  return {
+    loginStatus: state.app.loginStatus,
+  };
+}
+
+export default connect(mapStateToProps)(ProductScreen);
 

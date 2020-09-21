@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import '../styles/Header.css';
-
+import { connect } from 'react-redux';
+import { logout } from '../actions/logoutAction';
 
 class Header extends React.Component {
 
@@ -12,7 +13,7 @@ class Header extends React.Component {
   }
 
   handleLogoutClick() {
-    this.props.changeLogout();
+    this.props.dispatch(logout());
     localStorage.clear();
     this.props.history.push('/');
   }
@@ -28,7 +29,7 @@ class Header extends React.Component {
           <h1 className='store-name'>Trendy.com</h1>
         </Link>
         {
-          !this.props.data.loginStatus ?
+          !this.props.loginStatus ?
             <div className='header-links'>
               <Link to='/login'><div className='header-login'>Login</div></Link>
               <Link to='/signup'><div className='header-signup'>Sign Up</div></Link>
@@ -37,19 +38,25 @@ class Header extends React.Component {
             <div className='header-links-login'>
               <button className='header-logout' onClick={this.handleLogoutClick}>Log out</button>
               {
-                this.props.data.adminLogin === 'true' &&
+                this.props.adminLogin === 'true' &&
                 <Link to='/admin'><div className='header-admin'>Admin</div></Link>
               }
               {
-                this.props.data.adminLogin === 'false' &&
+                this.props.adminLogin === 'false' &&
                 <img className='header-cart-img' src={require('../images/cart.png')} onClick={this.handleCartClick} alt='cart'></img>
               }
             </div>
         }
       </div>
     );
-
   }
 }
 
-export default withRouter(Header);
+function mapStateToProps(state) {
+  return {
+    loginStatus: state.app.loginStatus,
+    adminLogin: state.app.adminLogin,
+  };
+}
+
+export default connect(mapStateToProps)(withRouter(Header));
