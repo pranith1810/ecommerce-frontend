@@ -7,6 +7,11 @@ import { admin } from '../actions/adminAction';
 
 class Admin extends React.Component {
 
+  constructor() {
+    super();
+    this.getProductData = this.getProductData.bind(this);
+  }
+
   getProductData() {
     fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/all')
       .then((response) => {
