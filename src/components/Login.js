@@ -4,6 +4,7 @@ import '../styles/Login.css';
 import { connect } from 'react-redux';
 import { login } from '../actions/loginAction';
 import axios from 'axios';
+import jwtDecode from "jwt-decode";
 
 class Login extends React.Component {
   constructor() {
@@ -42,9 +43,10 @@ class Login extends React.Component {
       })
       .then((jsonResponse) => {
         localStorage.setItem('token', jsonResponse.token);
-        this.props.dispatch(login(jsonResponse.isAdmin));
+        const decoded = jwtDecode(jsonResponse.token);
+        this.props.dispatch(login(decoded.isAdmin));
         localStorage.setItem('loginStatus', true);
-        if (jsonResponse.isAdmin === 0) {
+        if (decoded.isAdmin === 0) {
           localStorage.setItem('adminLogin', false);
         } else {
           localStorage.setItem('adminLogin', true);
