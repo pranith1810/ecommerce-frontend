@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/AdminAdd.css';
 import { storage } from '../firebase/config';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 class AdminUpdate extends React.Component {
 
@@ -21,22 +22,19 @@ class AdminUpdate extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/product/${this.props.match.params.id}`)
+    axios.get(`product/${this.props.match.params.id}`)
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
         this.setState({
-          productId: data[0].id,
-          productName: data[0].name,
-          isTopProduct: data[0].top_product === 0 ? 'No' : 'Yes',
-          price: data[0].price_rupees,
-          productType: data[0].type === 'accessories' ? 'Accessories' : 'Clothing',
+          productId: response.data[0].id,
+          productName: response.data[0].name,
+          isTopProduct: response.data[0].top_product === 0 ? 'No' : 'Yes',
+          price: response.data[0].price_rupees,
+          productType: response.data[0].type === 'accessories' ? 'Accessories' : 'Clothing',
         })
       })
       .catch((error) => {
         console.error(error);
-      })
+      });
   }
 
   handleChange(event) {
@@ -76,30 +74,17 @@ class AdminUpdate extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/update', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          {
-            token: localStorage.getItem('token'),
-            productId: this.state.productId,
-            name: this.state.productName,
-            isTopProduct: this.state.isTopProduct,
-            price: this.state.price,
-            productType: this.state.productType,
-            imgPath: this.image.current.files[0].name,
-          }),
+      axios.put('product/update', {
+        token: localStorage.getItem('token'),
+        productId: this.state.productId,
+        name: this.state.productName,
+        isTopProduct: this.state.isTopProduct,
+        price: this.state.price,
+        productType: this.state.productType,
+        imgPath: this.image.current.files[0].name,
       })
-        .then((response) => {
-          if (response.status === 400) {
-            this.setState({
-              detailsInvalid: 'Please enter correct details!',
-            })
-          } else {
-            return storage.ref(`${this.image.current.files[0].name}`).put(this.image.current.files[0]);
-          }
+        .then(() => {
+          return storage.ref(`${this.image.current.files[0].name}`).put(this.image.current.files[0]);
         })
         .then(() => {
           this.setState({
@@ -108,6 +93,11 @@ class AdminUpdate extends React.Component {
           this.props.history.push('/admin');
         })
         .catch((error) => {
+          if (error.response.status === 400) {
+            this.setState({
+              detailsInvalid: 'Please enter correct details!',
+            })
+          }
           console.error(error);
         });
     }

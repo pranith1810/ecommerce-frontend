@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import '../styles/Login.css';
 import { connect } from 'react-redux';
 import { login } from '../actions/loginAction';
+import axios from 'axios';
 
 class Login extends React.Component {
   constructor() {
@@ -27,39 +28,17 @@ class Login extends React.Component {
 
   handleFormSubmit(event) {
     event.preventDefault();
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-        {
-          email: this.state.email,
-          password: this.state.password
-        }),
+    axios.post('login', {
+      email: this.state.email,
+      password: this.state.password
     })
       .then((response) => {
-        if (response.status === 400) {
-          this.setState({
-            emailError: 'Please enter valid email!',
-          })
-        } else if (response.status === 404) {
-          this.setState({
-            userExistError: 'Wrong username or password!',
-          })
-        } else if (response.status === 409) {
-          this.setState({
-            userConfirmError: 'Please confirm your mail',
-          })
-        }
-        else {
-          this.setState({
-            emailError: '',
-            userExistError: '',
-            userConfirmError: ''
-          })
-          return response.json();
-        }
+        this.setState({
+          emailError: '',
+          userExistError: '',
+          userConfirmError: ''
+        })
+        return response.data;
       })
       .then((jsonResponse) => {
         localStorage.setItem('token', jsonResponse.token);
@@ -73,8 +52,21 @@ class Login extends React.Component {
         this.props.history.push('/');
       })
       .catch((error) => {
+        if (error.response.status === 400) {
+          this.setState({
+            emailError: 'Please enter valid email!',
+          })
+        } else if (error.response.status === 404) {
+          this.setState({
+            userExistError: 'Wrong username or password!',
+          })
+        } else if (error.response.status === 409) {
+          this.setState({
+            userConfirmError: 'Please confirm your mail',
+          })
+        }
         console.error(error);
-      })
+      });
   }
 
   render() {

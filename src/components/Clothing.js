@@ -1,5 +1,6 @@
 import React from 'react';
 import Product from './Product.js';
+import axios from 'axios';
 import '../styles/Clothing.css';
 import { connect } from 'react-redux';
 import { clothing } from '../actions/clothingAction.js';
@@ -7,12 +8,9 @@ import { clothing } from '../actions/clothingAction.js';
 class Clothing extends React.Component {
 
   componentDidMount() {
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/clothing')
+    axios.get('product/clothing')
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.props.dispatch(clothing(data));
+        this.props.dispatch(clothing(response.data));
       })
       .catch((err) => {
         console.error(err);

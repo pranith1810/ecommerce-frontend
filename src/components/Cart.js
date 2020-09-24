@@ -4,6 +4,7 @@ import '../styles/Cart.css';
 import { connect } from 'react-redux';
 import { cartProducts } from '../actions/cartProductsAction';
 import { cartTotal } from '../actions/cartTotalAction';
+import axios from 'axios';
 
 class Cart extends React.Component {
 
@@ -13,13 +14,10 @@ class Cart extends React.Component {
   }
 
   getCartData() {
-    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/cart/all/${localStorage.getItem('token')}`)
+    axios.get(`cart/all/${localStorage.getItem('token')}`)
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.props.dispatch(cartProducts(data));
-        return data;
+        this.props.dispatch(cartProducts(response.data));
+        return response.data;
       })
       .then((data) => {
         let cartTotalPrice = 0;

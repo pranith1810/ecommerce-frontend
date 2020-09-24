@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { storage } from '../firebase/config';
 import '../styles/CartProduct.css';
@@ -16,13 +17,10 @@ class CartProduct extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/product/${this.props.data.product_id}`)
+    axios.get(`product/${this.props.data.product_id}`)
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
         this.setState({
-          productData: data[0],
+          productData: response.data[0],
           productQuantity: this.props.data.quantity,
           productQuantityError: '',
         })
@@ -44,16 +42,9 @@ class CartProduct extends React.Component {
   }
 
   handlePlusClick() {
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/update/add', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-        {
-          token: localStorage.getItem('token'),
-          productId: this.props.data.product_id,
-        }),
+    axios.put('cart/update/add', {
+      token: localStorage.getItem('token'),
+      productId: this.props.data.product_id,
     })
       .then(() => {
         this.props.getCartData();
@@ -75,16 +66,9 @@ class CartProduct extends React.Component {
       });
     }
     else {
-      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/update/minus', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          {
-            token: localStorage.getItem('token'),
-            productId: this.props.data.product_id,
-          }),
+      axios.put('cart/update/minus', {
+        token: localStorage.getItem('token'),
+        productId: this.props.data.product_id,
       })
         .then(() => {
           this.props.getCartData();
@@ -92,7 +76,7 @@ class CartProduct extends React.Component {
         .catch((error) => {
           console.error(error);
         });
-        
+
       this.setState({
         productQuantity: this.state.productQuantity - 1,
       })
@@ -100,17 +84,7 @@ class CartProduct extends React.Component {
   }
 
   handleDeleteClick() {
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/delete', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-        {
-          token: localStorage.getItem('token'),
-          productId: this.props.data.product_id,
-        }),
-    })
+    axios.delete(`cart/delete/${localStorage.getItem('token')}/${this.props.data.product_id}`)
       .then(() => {
         this.props.getCartData();
       })

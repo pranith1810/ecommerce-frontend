@@ -3,16 +3,14 @@ import Product from './Product.js';
 import '../styles/Home.css';
 import { connect } from 'react-redux';
 import { home } from '../actions/homeAction';
+import axios from 'axios';
 
 class Home extends React.Component {
 
   componentDidMount() {
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/home')
+    axios.get('product/home')
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.props.dispatch(home(data));
+        this.props.dispatch(home(response.data));
       })
       .catch((err) => {
         console.error(err);

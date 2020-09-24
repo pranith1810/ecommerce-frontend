@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import '../styles/SignUp.css';
@@ -56,40 +57,31 @@ class SignUp extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password
-          }),
+      axios.post('signup', {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
       })
         .then((response) => {
-          if (response.status === 400) {
+          this.setState({
+            userExistError: '',
+            detailsInvalid: ''
+          })
+          alert('Please confirm your email and login!');
+          this.props.history.push('/login');
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
             this.setState({
               detailsInvalid: 'Please enter correct details!',
               userExistError: ''
             })
-          } else if (response.status === 409) {
+          } else if (error.response.status === 409) {
             this.setState({
               userExistError: 'User already exists!',
               detailsInvalid: ''
             })
           }
-          else {
-            this.setState({
-              userExistError: '',
-              detailsInvalid: ''
-            })
-            alert('Please confirm your email and login!');
-            this.props.history.push('/login');
-          }
-        })
-        .catch((error) => {
           console.error(error);
         })
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/ProductScreen.css';
 import { storage } from '../firebase/config';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 
 class ProductScreen extends React.Component {
@@ -17,13 +18,10 @@ class ProductScreen extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`https://trendycom-pranith-ecommerce.herokuapp.com/product/${this.props.match.params.id}`)
+    axios.get(`product/${this.props.match.params.id}`)
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
         this.setState({
-          productData: data[0]
+          productData: response.data[0]
         })
       })
       .then(() => {
@@ -47,30 +45,22 @@ class ProductScreen extends React.Component {
       alert('Please login before adding to cart!');
     }
     else {
-      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/cart/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          {
-            token: localStorage.getItem('token'),
-            productId: this.props.match.params.id,
-          }),
+      axios.post('cart/add', {
+        token: localStorage.getItem('token'),
+        productId: this.props.match.params.id,
       })
-        .then((response) => {
-          if (response.status === 409) {
+        .then(() => {
+          this.setState({
+            productInCart: 'Product added to cart!',
+          })
+        })
+        .catch((error) => {
+          if (error.response.status === 409) {
             this.setState({
               productInCartError: 'Product already added to the cart!',
               productInCart: '',
             })
-          } else {
-            this.setState({
-              productInCart: 'Product added to cart!',
-            })
           }
-        })
-        .catch((error) => {
           console.error(error);
         })
     }

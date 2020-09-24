@@ -2,6 +2,7 @@ import React from 'react';
 import { storage } from '../firebase/config';
 import { Link } from 'react-router-dom';
 import '../styles/AdminProduct.css';
+import axios from 'axios';
 
 class AdminProduct extends React.Component {
   constructor() {
@@ -25,17 +26,7 @@ class AdminProduct extends React.Component {
   }
 
   handleDeleteClick() {
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/delete', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-        {
-          token: localStorage.getItem('token'),
-          productId: this.props.data.id,
-        }),
-    })
+    axios.delete(`product/delete/${localStorage.getItem('token')}/${this.props.data.id}`)
       .then(() => {
         //Delete from firebase
         this.props.getProductData();

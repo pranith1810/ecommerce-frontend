@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/AdminAdd.css';
 import { storage } from '../firebase/config';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 class AdminAdd extends React.Component {
 
@@ -57,29 +58,16 @@ class AdminAdd extends React.Component {
 
   handleFormSubmit(event) {
     if (this.validate()) {
-      fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          {
-            token: localStorage.getItem('token'),
-            name: this.state.productName,
-            isTopProduct: this.state.isTopProduct,
-            price: this.state.price,
-            productType: this.state.productType,
-            imgPath: this.image.current.files[0].name,
-          }),
+      axios.post('product/add', {
+        token: localStorage.getItem('token'),
+        name: this.state.productName,
+        isTopProduct: this.state.isTopProduct,
+        price: this.state.price,
+        productType: this.state.productType,
+        imgPath: this.image.current.files[0].name,
       })
-        .then((response) => {
-          if (response.status === 400) {
-            this.setState({
-              detailsInvalid: 'Please enter correct details!',
-            })
-          } else {
-            return storage.ref(`${this.image.current.files[0].name}`).put(this.image.current.files[0]);
-          }
+        .then(() => {
+          return storage.ref(`${this.image.current.files[0].name}`).put(this.image.current.files[0]);
         })
         .then(() => {
           this.setState({
@@ -88,6 +76,11 @@ class AdminAdd extends React.Component {
           this.props.history.push('/admin');
         })
         .catch((error) => {
+          if (error.response.status === 400) {
+            this.setState({
+              detailsInvalid: 'Please enter correct details!',
+            })
+          }
           console.error(error);
         });
     }

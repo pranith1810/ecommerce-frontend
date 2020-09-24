@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Admin.css';
 import { connect } from 'react-redux';
 import { admin } from '../actions/adminAction';
+import axios from 'axios';
 
 class Admin extends React.Component {
 
@@ -13,12 +14,9 @@ class Admin extends React.Component {
   }
 
   getProductData() {
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/all')
+    axios.get('product/all')
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.props.dispatch(admin(data));
+        this.props.dispatch(admin(response.data));
       })
       .catch((err) => {
         console.error(err);

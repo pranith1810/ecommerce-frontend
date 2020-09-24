@@ -3,16 +3,14 @@ import Product from './Product.js';
 import '../styles/Accessories.css';
 import {connect} from 'react-redux';
 import {accessories} from '../actions/accessoriesAction';
+import axios from 'axios';
 
 class Accessories extends React.Component {
 
   componentDidMount() {
-    fetch('https://trendycom-pranith-ecommerce.herokuapp.com/product/accessories')
+      axios.get('product/accessories')
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        this.props.dispatch(accessories(data));
+        this.props.dispatch(accessories(response.data));
       })
       .catch((err) => {
         console.error(err);

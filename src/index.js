@@ -5,6 +5,9 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store.js';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://trendycom-pranith-ecommerce.herokuapp.com';
 
 ReactDOM.render(
   <React.StrictMode>
